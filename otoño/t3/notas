@@ -1,0 +1,38 @@
+$ si muto el controlador (que contiene el monitor, la cola, y otros datos) tengo que hacer:
+
+ EnterWrite
+ ...
+ ExitWrite
+
+$ "que llegue un thread" <==> se emite una tarea
+ el thread
+
+cosas importantes a considerar:
+
+stopBatch detiene las invocaciones de submitJob, lo que quiere decir que sTartBatch no para de funcionar
+hasta que no haya un cambio de estado
+
+el proceso se ve de la siguiente maner:
+
+nMain() {
+
+    startBatch(n);
+    
+    ...
+
+    stopBatch();
+
+}
+
+
+Los threads solo ejecutan jobs. Los jobs llegan de forma externa a la cola (un thread externo)
+
+
+Si no hay ningun job en la cola, es porque o no hay ningun thread ocupado o porque estan todos ocupados
+
+
+
+Hay algo que todavia no entiendo. si tengo un thread que toma un job de la cola y lo espera con waitJob, pero para ser eficiente se necesita ocupar nWaitCondition, quién despierta al thread? no veo la similitud con el problema de lectores/escritores pq en este despierto a los threads cuando salgo de la seccion crítica y los lectores pueden leer de forma paralela, pero aquí cada thread tiene un job, los espera, el job termina y vuelve a tomar un job de la cola nuevamente. entiendo que en la ejecucion de la funcion del job pueda haber paralelismo pero aun no cacho por qué se necesita ocupar nWaitCondition. alguien alguna idea?
+
+
+no olvidar la naturaleza de las variables

@@ -1,6 +1,0 @@
-LIB=$1
-shift
-OBJS=`lorder $* | tsort 2> /dev/null`
-echo ar ru $LIB $OBJS
-rm -f $LIB
-ar ru $LIB $OBJS

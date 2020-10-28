@@ -1,2 +1,0 @@
-ar ru $*
-ranlib $1
